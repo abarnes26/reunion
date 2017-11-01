@@ -64,4 +64,52 @@ class ReunionTest < Minitest::Test
 
      assert_equal 90, reunion.add_up_activity_cost
    end
+
+   def test_it_can_total_all_participants
+     reunion = Reunion.new("Central Park")
+     activity1 = Activity.new("Volleyball")
+     activity1.add_participant({"name" => "Chris",
+                                "paid" => 14})
+     activity1.add_participant({"name" => "Harrison",
+                                "paid" => 15})
+     activity1.add_participant({"name" => "Katherine",
+                                "paid" => 12})
+     activity1.add_participant({"name" => "Joan",
+                                "paid" => 19})
+     activity2 = Activity.new("Tennis")
+     activity2.add_participant({"name" => "Chris",
+                                "paid" => 14})
+     activity2.add_participant({"name" => "Harrison",
+                                "paid" => 16})
+     reunion.add_activities(activity1)
+     reunion.add_activities(activity2)
+
+     assert_equal 4, reunion.add_up_participants
+   end
+
+   def test_it_can_figure_out_who_owes_what
+     reunion = Reunion.new("Central Park")
+     activity1 = Activity.new("Volleyball")
+     activity1.add_participant({"name" => "Chris",
+                                "paid" => 14})
+     activity1.add_participant({"name" => "Harrison",
+                                "paid" => 15})
+     activity1.add_participant({"name" => "Katherine",
+                                "paid" => 12})
+     activity1.add_participant({"name" => "Joan",
+                                "paid" => 19})
+     activity2 = Activity.new("Tennis")
+     activity2.add_participant({"name" => "Chris",
+                                "paid" => 14})
+     activity2.add_participant({"name" => "Harrison",
+                                "paid" => 16})
+     reunion.add_activities(activity1)
+     reunion.add_activities(activity2)
+     reunion.determine_cost_per_participant
+     results = {"Volleyball"=>{"Chris"=>1, "Harrison"=>0, "Katherine"=>3, "Joan"=>-4},
+                    "Tennis"=>{"Chris"=>1, "Harrison"=>-1}}
+
+     assert_equal results, reunion.determine_cost_per_participant
+   end
+
 end
