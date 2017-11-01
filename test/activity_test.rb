@@ -54,6 +54,30 @@ class ActivityTest < Minitest::Test
     assert_equal 30, activity.total_cost
   end
 
+  def test_an_activity_cost_can_be_split
+    activity = Activity.new("Tennis")
+    activity.add_participant({"name" => "Chris",
+                              "paid" => 14})
+    activity.add_participant({"name" => "Harrison",
+                              "paid" => 16})
+
+    assert_equal 15, activity.average_cost
+  end
+
+  def test_can_determine_who_owes_what
+    activity = Activity.new("Tennis")
+    activity.add_participant({"name" => "Chris",
+                              "paid" => 14})
+    activity.add_participant({"name" => "Harrison",
+                              "paid" => 16})
+    activity.determine_who_owes
+
+
+    assert_equal 1, activity.tab["Chris"]
+    assert_equal -1, activity.tab["Harrison"]
+  end
+
+
 
 
 end
