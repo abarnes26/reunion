@@ -1,12 +1,13 @@
 class Activity
-  attr_reader :participants
-  def initialize(name)
+  attr_reader :participants, :cost
+  def initialize(name, cost)
     @name = name
     @participants = []
-    @cost = 0
+    @cost = cost
   end
 
   def add_participant(name, paid)
     @participants << {name: name, paid: paid}
   end
+
 end
