@@ -48,6 +48,14 @@ class ActivityTest < Minitest::Test
     assert_equal 15, activity.cost_per_person
   end
 
+  def test_can_determine_who_owes_what
+    activity = Activity.new("hiking", 30)
 
+    activity.add_participant("Andrew", 5)
+    assert_equal 25, activity.owes.first["Andrew"]
 
+    activity.add_participant("Biebz", 5)
+    assert_equal 10, activity.owes.first["Andrew"]
+    assert_equal 10, activity.owes.last["Biebz"]
+  end
 end
