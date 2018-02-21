@@ -16,7 +16,7 @@ class Activity
 
   def owes
     @participants.map do |person|
-      {person[:name] => cost_per_person - person[:paid] }
+      {person[:name] => cost_per_person - person[:paid]}
     end
   end
 end
