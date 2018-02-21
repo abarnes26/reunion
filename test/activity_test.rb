@@ -57,5 +57,8 @@ class ActivityTest < Minitest::Test
     activity.add_participant("Biebz", 5)
     assert_equal 10, activity.owes.first["Andrew"]
     assert_equal 10, activity.owes.last["Biebz"]
+
+    activity.add_participant("Swift", 20)
+    assert_equal -10, activity.owes.last["Swift"]
   end
 end
